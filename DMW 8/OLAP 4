@@ -1,0 +1,35 @@
+-- Create the sales_data table
+CREATE TABLE sales_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE,
+    product VARCHAR(50),
+    category VARCHAR(50),
+    amount DECIMAL(10, 2)
+);
+
+-- Insert 5 rows into the sales_data table
+INSERT INTO sales_data (date, product, category, amount) VALUES
+('2024-03-01', 'Product A', 'Category X', 100.50),
+('2024-03-02', 'Product B', 'Category Y', 200.25),
+('2024-03-03', 'Product C', 'Category Z', 150.75),
+('2024-03-04', 'Product D', 'Category X', 300.00),
+('2024-03-05', 'Product E', 'Category Y', 250.50);
+
+SELECT *
+FROM sales_data
+WHERE date LIKE '2024-03%';
+
+SELECT *
+FROM sales_data
+WHERE date LIKE '2024-03%' AND category = 'Category X';
+
+SELECT SUBSTR(date, 1, 4) AS year,
+       SUM(amount) AS total_sales
+FROM sales_data
+GROUP BY SUBSTR(date, 1, 4);
+
+SELECT SUBSTR(date, 1, 4) AS year,
+       SUBSTR(date, 6, 2) AS month,
+       SUM(amount) AS total_sales
+FROM sales_data
+GROUP BY SUBSTR(date, 1, 4), SUBSTR(date, 6, 2);
